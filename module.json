@@ -1,0 +1,9 @@
+{
+	"name": "Gallery",
+	"slug": "gallery",
+	"version": "1.0",
+	"description": "This is the description for the Gallery module.",
+	"repo_link": "https://github.com/amgadmetri/MarvelGallery.git",
+	"type":"plugin",
+	"enabled": true
+}
