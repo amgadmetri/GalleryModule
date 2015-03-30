@@ -15,12 +15,15 @@ class CreateGalleryTable extends Migration
 		if ( ! Schema::hasTable('gallery'))
 		{
 			Schema::create('gallery', function(Blueprint $table) {
-				$table->increments('id');
-				$table->string('file_name', 150);
+				$table->bigIncrements('id');
+				$table->string('file_name', 150)->index();
 				$table->string('path', 150);
-				$table->string('caption', 150);
-				$table->bigInteger('user_id');
-				$table->enum('type', ['photo', 'video']);
+				$table->string('caption', 150)->index();
+				
+				$table->bigInteger('user_id')->unsigned();
+				$table->foreign('user_id')->references('id')->on('users');
+
+				$table->enum('type', ['photo', 'video'])->index();
 				$table->timestamps();
 			});
 		}

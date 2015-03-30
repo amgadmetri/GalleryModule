@@ -1,7 +1,7 @@
-@extends('gallery::master')
+@extends('app')
 @section('content')
 <div class="container">
-	<div class="col-sm-9">
+	<div class="col-sm-8">
 		@if (count($errors) > 0)
 		<div class="alert alert-danger">
 			<strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -21,7 +21,6 @@
 		</div>
 		@endif
 
-		@include('gallery::parts.modals.mediamodal')
 		<form method="post" id="album">
 			<input name="_token" type="hidden" value="{{ csrf_token() }}">
 
@@ -48,6 +47,10 @@
 			
 		</form>
 	</div>
+	<div class="col-sm-2">
+		<label for="album_name">Choos Galleries</label>
+		@include('gallery::parts.modals.mediamodal')
+	</div>
 </div>
-<script src="{{ asset('js/album/addalbumgalleries.js') }}"></script>
+<script src="{{ asset('assets/js/album/addalbumgalleries.js') }}"></script>
 @stop

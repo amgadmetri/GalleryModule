@@ -20,23 +20,19 @@ trait ThumbnailsTrait{
 		return Thumbnail::create($data);
 	}
 
-	public function updateThumbnail($id, $data)
-	{
-		$thumbnail = $this->getThumbnail($id);
-		return $thumbnail->update($data);
-	}
-
 	public function deleteThumbnail($id)
 	{	
 		$thumbnail = $this->getThumbnail($id);
+		if (file_exists($thumbnail->storage_path)) unlink($thumbnail->storage_path);
+
 		return $thumbnail->delete();
 	}
 
 
 	public function createThumbPhoto($id, $data, $thumbType = 'resize')
 	{
-		$gallery      = $this->getGallery($id);		
-		$image        = Image::make($gallery->storage_path);
+		$gallery = $this->getGallery($id);		
+		$image   = Image::make($gallery->storage_path);
 
 		if($thumbType == 'resize')
 		{

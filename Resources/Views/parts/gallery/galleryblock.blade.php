@@ -2,7 +2,7 @@
 	@foreach($insertedGalleries as $gallery)
 	<div class="col-xs-6 col-md-4">
 		<div class="thumbnail">
-				<input name="gallery_id[]" type="hidden" id="gallery_id" value="{{ $gallery->id }}">
+				<input name="gallery_ids[]" type="hidden" id="gallery_id" value="{{ $gallery->id }}">
 				@if ($gallery->type == 'photo')
 				<img width="149" height="149" src='{{ $gallery->path }}' alt="{{ $gallery->caption }}"/>
 				@else

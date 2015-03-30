@@ -21,6 +21,11 @@ class GalleryServiceProvider extends ServiceProvider
 		// methods or service providers to keep the code more focused and granular.
 		App::register('App\Modules\Gallery\Providers\RouteServiceProvider');
 
+		//Bind GalleryRepository Facade to the IoC Container
+		App::bind('GalleryRepository', function()
+		{
+			return new App\Modules\Gallery\Repositories\GalleryRepository;
+		});
 		$this->registerNamespaces();
 	}
 

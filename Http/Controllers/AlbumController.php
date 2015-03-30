@@ -16,8 +16,25 @@ class AlbumController extends Controller {
 
 	public function getIndex()
 	{
-		$albums = $this->gallery->getAllAlbums();		
+		$albums = $this->gallery->getAllAlbums();	
 		return view('gallery::albums.viewalbum', compact('albums'));
+	}
+
+	public function getPreview($id, Request $request)
+	{
+		if($request->ajax()) 
+		{
+			$this->gallery->addItemGalleries($this->gallery->getAlbum($id), $request->input('ids'));
+			return 'refresh';
+		}
+
+		$galleries      = $this->gallery->getAllGalleries();
+		$galleryBlock   = view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
+		
+		$album          = $this->gallery->getAlbum($id);
+		$albumGalleries = $this->gallery->getGalleries($album->galleries->lists('id'));	
+
+		return view('gallery::albums.preview' ,compact('album', 'albumGalleries', 'galleryBlock'));
 	}
 
 	public function getCreate(Request $request)
@@ -25,33 +42,47 @@ class AlbumController extends Controller {
 		if($request->ajax()) 
 		{
 			$insertedGalleries = $this->gallery->getGalleries($request->input('ids'));
-			return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
+			return $insertedGalleries;
 		}
 
 		$galleries    = $this->gallery->getAllGalleries();
 		$galleryBlock = view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
 		
-		return view('gallery::albums.addalbum', compact('galleries', 'galleryBlock'));
+		return view('gallery::albums.addalbum', compact('galleryBlock'));
 	}
 
 	public function postCreate(AlbumFormRequest $request)
 	{
 		$data['user_id'] = 1;
-		$this->gallery->createAlbum(array_merge($request->all(), $data));
+		$album           = $this->gallery->createAlbum(array_merge($request->all(), $data));
+		$this->gallery->addGalleries($album, $request->input('gallery_ids'));
 
 		return redirect()->back()->with('message', 'Album Created succssefuly');
 	}
 	
-	public function getUpdate($id)
+	public function getUpdate($id, Request $request)
 	{
-		$album = $this->gallery->getAlbum($id);
-		return view('gallery::albums.updatealbum', compact('album'));
+		if($request->ajax()) 
+		{
+			$insertedGalleries = $this->gallery->getGalleries($request->input('ids'));
+			return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
+		}
+
+		$album             = $this->gallery->getAlbum($id);
+		$albumGalleriesIds = $this->gallery->getGalleries($album->galleries->lists('id'));
+		$albumGalleries    = view('gallery::parts.gallery.galleryblock', ['insertedGalleries' => $albumGalleriesIds])->render();
+		
+		$galleries         = $this->gallery->getAllGalleries();
+		$galleryBlock      = view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
+
+		return view('gallery::albums.updatealbum', compact('album', 'galleryBlock', 'albumGalleries'));
 	}
 	
 	public function postUpdate(AlbumFormRequest $request, $id)
 	{
 		$data['user_id'] = 1;
-		$this->gallery->updateAlbum($id, array_merge($request->all(), $data));
+		$album           = $this->gallery->updateAlbum($id, array_merge($request->all(), $data));
+		$this->gallery->addGalleries($album, $request->input('gallery_ids'));
 
 		return redirect()->back()->with('message', 'Album updated succssefuly');
 	}
@@ -60,5 +91,11 @@ class AlbumController extends Controller {
 	{
 		$this->gallery->deleteAlbum($id);
 		return redirect()->back()->with('message', 'album Deleted succssefuly');
+	}
+
+	public function getDeletegallery($galleryId, $albumId)
+	{
+		$this->gallery->deleteItemGallery($this->gallery->getAlbum($albumId), $galleryId);
+		return redirect()->back()->with('message', 'Gallery Deleted succssefuly');
 	}
 }

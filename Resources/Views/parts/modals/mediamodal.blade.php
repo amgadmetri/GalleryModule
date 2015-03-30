@@ -84,6 +84,6 @@
 		</div>
 	</div>
 </div>
-<script src="{{ asset('js/medialibrary/ajax-handlers/modalajaxhandler.js') }}"></script>
-<script src="{{ asset('js/medialibrary/ajax-handlers/paginationmodalajaxhandler.js') }}"></script>
-<script src="{{ asset('js/medialibrary/medialibrary.js') }}"></script>
+<script src="{{ asset('assets/js/medialibrary/ajax-handlers/modalajaxhandler.js') }}"></script>
+<script src="{{ asset('assets/js/medialibrary/ajax-handlers/paginationmodalajaxhandler.js') }}"></script>
+<script src="{{ asset('assets/js/medialibrary/medialibrary.js') }}"></script>

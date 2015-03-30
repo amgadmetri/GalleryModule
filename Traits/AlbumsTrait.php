@@ -22,7 +22,8 @@ trait AlbumsTrait{
 	public function updateAlbum($id, $data)
 	{
 		$album = $this->getAlbum($id);
-		return $album->update($data);
+		$album->update($data);
+		return $album;
 	}
 
 	public function deleteAlbum($id)

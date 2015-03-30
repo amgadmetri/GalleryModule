@@ -1,3 +1,7 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cropModal">
+	Crop image 
+</button>
+
 <!-- Modal -->
 <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -35,5 +39,6 @@
 		</div>
 	</div>
 </div>
-<script src="{{ asset('js/crop/jquery.Jcrop.min.js') }}"></script>
-<script src="{{ asset('js/crop/cropform.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.Jcrop.min.css') }}">
+<script src="{{ asset('assets/js/crop/jquery.Jcrop.min.js') }}"></script>
+<script src="{{ asset('assets/js/crop/cropform.js') }}"></script>

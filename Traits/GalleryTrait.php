@@ -11,7 +11,7 @@ trait GalleryTrait{
 
 	public function getGalleries($ids)
 	{
-		return Gallery::whereIn('id', $ids)->get();
+		return Gallery::with(['thumbnails'])->whereIn('id', $ids)->get();
 	}
 
 	public function getGallery($id)
@@ -40,7 +40,28 @@ trait GalleryTrait{
 
 		return $gallery->delete();
 	}
-	
+
+	public function addGalleries($obj, $data)
+	{
+		$this->deleteGalleries($obj);
+		return $obj->galleries()->attach($data);
+	}
+
+	public function deleteGalleries($obj)
+	{
+		return $obj->galleries()->detach();
+	}
+
+	public function addItemGalleries($obj, $data)
+	{
+		return $obj->galleries()->attach($data);
+	}
+
+	public function deleteItemGallery($obj, $id)
+	{
+		return $obj->galleries()->detach($id);
+	}
+
 	public function uploadPhoto($file)
 	{
 		$fileName =  "img_" . uniqid() . time() . '_' . $file->getClientOriginalName();

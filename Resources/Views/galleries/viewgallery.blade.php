@@ -1,18 +1,17 @@
-@extends('gallery::master')
+@extends('app')
 @section('content')
 <div class="container">
 	<div class="col-sm-9">
 
 		<table class="table table-striped">
-			<tr class="info">
+			<tr>
 				<th>ID</th>
 				<th>Gallery name</th>
 				
 				<th>Caption</th>
 				<th>Type</th>
 				<th>Preview</th>
-				<th>Update</th>
-				<th>Delete</th>
+				<th>Options</th>
 			</tr>
 			@foreach($galleries as $gallery)
 			<tr>
@@ -22,19 +21,11 @@
 				<th>{{ $gallery->caption }}</th>
 				<th>{{ $gallery->type }}</th>
 				<th>
-					<a class="btn btn-success" href='{{ url("/gallery/preview/$gallery->id") }}' data-toggle="tooltip" data-placement="left" title="Preview">
-						<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-					</a> 
+					<a class="btn btn-default" href='{{ url("/gallery/preview/$gallery->id") }}'role="button">View</a> 
 				</th>
 				<th>
-					<a class="btn btn-primary" href='{{ url("/gallery/updategallery/$gallery->id") }}' data-toggle="tooltip" data-placement="left" title="Edit">
-						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-					</a> 
-				</th>
-				<th>
-					<a class="btn btn-danger" href='{{ url("/gallery/delete/$gallery->id") }}' data-toggle="tooltip" data-placement="left" title="Delete">
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					</a> 
+					<a class="btn btn-default" href='{{ url("/gallery/updategallery/$gallery->id") }}' role="button">Edit</a> 
+					<a class="btn btn-default" href='{{ url("/gallery/delete/$gallery->id") }}' role="button">Delete</a> 
 				</th>
 			</tr>
 			@endforeach

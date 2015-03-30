@@ -15,12 +15,15 @@ class CreateThumbnailsTable extends Migration
 		if ( ! Schema::hasTable('thumbnails'))
 		{
 			Schema::create('thumbnails', function(Blueprint $table) {
-				$table->increments('id');
-				$table->bigInteger('photo_id');
-				$table->string('thumb_name', 150)->unique();
+				$table->bigIncrements('id');
+
+				$table->bigInteger('photo_id')->unsigned();
+				$table->foreign('photo_id')->references('id')->on('gallery');
+
+				$table->string('thumb_name', 150)->unique()->index();
 				$table->string('path', 150);
-				$table->integer('width');
-				$table->integer('height');
+				$table->integer('width')->unsigned()->index();
+				$table->integer('height')->unsigned()->index();
 				$table->timestamps();
 			});
 		}
