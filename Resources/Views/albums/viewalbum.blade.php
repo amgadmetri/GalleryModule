@@ -23,9 +23,7 @@
 				</th>
 			</tr>
 			@endforeach
-			
 		</table>
-
 	</div>
 </div>
 @stop

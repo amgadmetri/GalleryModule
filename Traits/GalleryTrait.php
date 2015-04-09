@@ -4,9 +4,22 @@ use App\Modules\Gallery\Gallery;
 
 trait GalleryTrait{
 
-	public function getAllGalleries()
+	public function getAllGalleries($type = 'all')
 	{
-		return Gallery::with(['albums', 'thumbnails'])->paginate('6');
+		switch ($type) 
+		{
+			case 'all' : default :
+				return Gallery::with(['albums', 'thumbnails'])->paginate('6');
+				break;
+			
+			case 'photo':
+				return Gallery::where('type', 'photo')->with(['albums', 'thumbnails'])->paginate('6');
+				break;
+
+			case 'video':
+				return Gallery::where('type', 'video')->with(['albums', 'thumbnails'])->paginate('6');
+				break;
+		}
 	}
 
 	public function getGalleries($ids)

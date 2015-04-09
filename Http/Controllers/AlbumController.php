@@ -11,6 +11,7 @@ class AlbumController extends Controller {
 	private $gallery;
 	public function __construct(GalleryRepository $gallery)
 	{
+		$this->middleware('AclAuthenticate');
 		$this->gallery = $gallery;
 	}
 
@@ -27,14 +28,12 @@ class AlbumController extends Controller {
 			$this->gallery->addItemGalleries($this->gallery->getAlbum($id), $request->input('ids'));
 			return 'refresh';
 		}
-
-		$galleries      = $this->gallery->getAllGalleries();
-		$galleryBlock   = view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
 		
 		$album          = $this->gallery->getAlbum($id);
 		$albumGalleries = $this->gallery->getGalleries($album->galleries->lists('id'));	
+		$mediaLibrary   = $this->gallery->getMediaLibrary();
 
-		return view('gallery::albums.preview' ,compact('album', 'albumGalleries', 'galleryBlock'));
+		return view('gallery::albums.preview' ,compact('album', 'albumGalleries', 'mediaLibrary'));
 	}
 
 	public function getCreate(Request $request)
@@ -42,13 +41,11 @@ class AlbumController extends Controller {
 		if($request->ajax()) 
 		{
 			$insertedGalleries = $this->gallery->getGalleries($request->input('ids'));
-			return $insertedGalleries;
+			return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
 		}
 
-		$galleries    = $this->gallery->getAllGalleries();
-		$galleryBlock = view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
-		
-		return view('gallery::albums.addalbum', compact('galleryBlock'));
+		$mediaLibrary = $this->gallery->getMediaLibrary();
+		return view('gallery::albums.addalbum', compact('mediaLibrary'));
 	}
 
 	public function postCreate(AlbumFormRequest $request)
@@ -69,13 +66,13 @@ class AlbumController extends Controller {
 		}
 
 		$album             = $this->gallery->getAlbum($id);
+		$mediaLibrary      = $this->gallery->getMediaLibrary();
+		
 		$albumGalleriesIds = $this->gallery->getGalleries($album->galleries->lists('id'));
 		$albumGalleries    = view('gallery::parts.gallery.galleryblock', ['insertedGalleries' => $albumGalleriesIds])->render();
 		
-		$galleries         = $this->gallery->getAllGalleries();
-		$galleryBlock      = view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
 
-		return view('gallery::albums.updatealbum', compact('album', 'galleryBlock', 'albumGalleries'));
+		return view('gallery::albums.updatealbum', compact('album', 'mediaLibrary', 'albumGalleries'));
 	}
 	
 	public function postUpdate(AlbumFormRequest $request, $id)

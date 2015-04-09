@@ -1,8 +1,10 @@
 @extends('app')
 @section('content')
 <div class="container">
+	<div class="col-sm-3">
+		{!! $mediaLibrary !!}
+	</div>
 	<div class="col-sm-9">
-
 		<table class="table table-striped">
 			<tr>
 				<th>ID</th>
@@ -29,7 +31,6 @@
 				</th>
 			</tr>
 			@endforeach
-			
 		</table>
 			{!! $galleries->render() !!}
 	</div>

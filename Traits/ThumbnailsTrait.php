@@ -48,14 +48,16 @@ trait ThumbnailsTrait{
                             '_' . 
 	                        $gallery->uploaded_file_name);
 
-		$thumbnail = $this->createThumbnail(
+		$thumbnail = new Thumbnail(
 			array_merge(
 				$data, 
-				['path' => $this->getCurrentDateDirectory() .
-				           $data['thumb_name'] . 
-				           '_' . 
-				           $gallery->uploaded_file_name
-				]));
+				[
+				'path' => $this->getCurrentDateDirectory() .
+				$data['thumb_name'] . 
+				'_' . 
+				$gallery->uploaded_file_name
+				])
+			);
 		
 		$gallery->thumbnails()->save($thumbnail);
 	}

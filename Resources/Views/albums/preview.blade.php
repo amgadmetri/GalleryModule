@@ -27,9 +27,8 @@
 	</div>
 	<div class="col-sm-2">
 		<label for="album_name">Choos Galleries</label>
-		@include('gallery::parts.modals.mediamodal')
-
+		{!! $mediaLibrary !!}
 	</div>
 </div>
-<script src="{{ asset('assets/js/album/addalbumgalleries.js') }}"></script>
+@include('gallery::albums.assets.addalbumgalleries')
 @stop

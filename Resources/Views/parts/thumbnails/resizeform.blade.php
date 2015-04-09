@@ -38,10 +38,8 @@
 					</div>
 					<br>
 					<button type="submit" class="btn btn-primary form-control">Create thumbnail</button>
-
 				</form>
 			</div>
-
 		</div>
 	</div>
 </div>

@@ -27,9 +27,7 @@
 
 							<form id="media_form">
 								<div class="row">
-
-									{!!$galleryBlock !!}
-
+									@include('gallery::parts.modals.modalgalleryblock')
 								</div>
 							</form>
 						</div>
@@ -84,6 +82,6 @@
 		</div>
 	</div>
 </div>
-<script src="{{ asset('assets/js/medialibrary/ajax-handlers/modalajaxhandler.js') }}"></script>
-<script src="{{ asset('assets/js/medialibrary/ajax-handlers/paginationmodalajaxhandler.js') }}"></script>
-<script src="{{ asset('assets/js/medialibrary/medialibrary.js') }}"></script>
+@include('gallery::parts.modals.assets.ajax-handlers.modalajaxhandler')
+@include('gallery::parts.modals.assets.ajax-handlers.paginationmodalajaxhandler')
+@include('gallery::parts.modals.assets.medialibrary')

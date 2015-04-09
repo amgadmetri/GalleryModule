@@ -11,16 +11,18 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
  	private $gallery;
  	public function __construct(GalleryRepository $gallery)
  	{
+		$this->middleware('AclAuthenticate');
  		$this->gallery = $gallery;
  	}
 
  	//display all the galleries
 	public function getIndex()
 	{
-		$galleries = $this->gallery->getAllGalleries();
+		$mediaLibrary = $this->gallery->getMediaLibrary();
+		$galleries    = $this->gallery->getAllGalleries();
 		$galleries->setPath('gallery');
 
-		return view('gallery::galleries.viewgallery', compact('galleries'));
+		return view('gallery::galleries.viewgallery', compact('galleries', 'mediaLibrary'));
 	}
 
 	public function getPreview($id)

@@ -12,6 +12,7 @@ class ThumbnailsController extends Controller {
 	private $gallery;
 	public function __construct(GalleryRepository $gallery)
 	{
+		$this->middleware('AclAuthenticate');
 		$this->gallery = $gallery;
 	}
 

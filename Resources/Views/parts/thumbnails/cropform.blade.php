@@ -39,6 +39,7 @@
 		</div>
 	</div>
 </div>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.Jcrop.min.css') }}">
-<script src="{{ asset('assets/js/crop/jquery.Jcrop.min.js') }}"></script>
-<script src="{{ asset('assets/js/crop/cropform.js') }}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ str_replace('public', 'app', url('Modules/Gallery/Resources/Views/parts/thumbnails/assets/jquery.Jcrop.min.css')) }}">
+<script src="{{ str_replace('public', 'app', url('Modules/Gallery/Resources/Views/parts/thumbnails/assets/jquery.Jcrop.min.js')) }}"></script>
+@include('gallery::parts.thumbnails.assets.cropform')
