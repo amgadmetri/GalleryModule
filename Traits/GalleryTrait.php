@@ -88,4 +88,13 @@ trait GalleryTrait{
 		parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
 		return $my_array_of_vars['v'];
 	}
+
+	public function getImageThumbnail($galleryId, $thumbName = false)
+	{
+		if ($thumbName) 
+		{
+			return $this->getGallery($galleryId)->thumbnails()->where('thumb_name', '=', $thumbName)->first();
+		}
+		$this->getGallery($galleryId)->thumbnails;
+	}
 }

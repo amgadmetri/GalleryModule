@@ -11,7 +11,7 @@ class GalleryRepository
 	use AlbumsTrait;
 	use ThumbnailsTrait;
 
-	public function getMediaLibrary($type = 'all', $single = false)
+	public function getMediaLibrary($type = 'all', $single = false, $medialibraryName = 'mediaLibrary', $paginate = false)
 	{
 		switch ($type) 
 		{
@@ -26,10 +26,27 @@ class GalleryRepository
 			case 'video':
 				$galleries = $this->getAllGalleries('video');
 				break;
+
+			case 'album':
+				$galleries = false;
+				$albums    = $this->getAllAlbums();
+				break;
 		}
-		
-		return view('gallery::parts.modals.mediamodal', 
-			        compact('galleries', 'single'))->
+
+		$single = $single === 'true' ? true : false;
+
+		if( $type !== 'album')
+			$galleries->setPath(url('gallery/medialibrary/paginate', [$type, $single ? 'true' : 'false', $medialibraryName]));
+		else
+			$albums->setPath(url('gallery/medialibrary/paginate', [$type, $single ? 'true' : 'false', $medialibraryName]));
+
+		if($paginate)
+			return view('gallery::parts.modals.modalgalleryblock', 
+			        compact('galleries', 'albums', 'single', 'type', 'medialibraryName'))->
+					render();
+		else
+			return view('gallery::parts.modals.mediamodal', 
+			        compact('galleries', 'albums', 'single', 'type', 'medialibraryName'))->
 					render();
 	}
 

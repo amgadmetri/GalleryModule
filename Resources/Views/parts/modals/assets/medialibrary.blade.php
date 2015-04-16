@@ -2,7 +2,7 @@
 /**
  * Select and unselect galleries.
  */
- $(document).on('click', 'a#galleryLink', function(){
+ $(document).on('click', 'a#{{ $medialibraryName }}galleryLink', function(){
 
   selcetedGallery = $(this).find("input[type=checkbox]");
 
@@ -27,21 +27,21 @@
  * to return selected values of galleries
  * to that listner.
  */
- var mediaSelectedIds = {
-  init: function (listner) {
-    mediaSelectedIds.prepare();
-    mediaSelectedIds.events(listner);
+ var {{ $medialibraryName }} = {
+  init    : function (listner) {
+    {{ $medialibraryName }}.prepare();
+    {{ $medialibraryName }}.events(listner);
   },
 
-  prepare: function () {
-    mediaSelectedIds.saveButtonId = '#media_form_submit';
+  prepare : function () {
+    {{ $medialibraryName }}.saveButtonId = '#{{ $medialibraryName }}media_form_submit';
   },
 
-  events: function (listner) {
+  events  : function (listner) {
 
-    $(document).on('click', mediaSelectedIds.saveButtonId, function () {
+    $(document).on('click', {{ $medialibraryName }}.saveButtonId, function () {
 
-      checkedValues = $('#gallery:checked').map(function () {
+      checkedValues = $('#{{ $medialibraryName }}gallery:checked').map(function () {
         return this.value;
       }).get();
 

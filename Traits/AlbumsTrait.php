@@ -6,7 +6,7 @@ trait AlbumsTrait{
 
 	public function getAllAlbums()
 	{
-		return Albums::with('galleries')->paginate('6');
+		return Albums::with('galleries')->paginate('1');
 	}
 
 	public function getAlbum($id)

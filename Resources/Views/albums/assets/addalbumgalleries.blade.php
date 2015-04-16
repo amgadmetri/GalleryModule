@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function () {
-		mediaSelectedIds.init(function(checkedValues)
+		mediaLibrary.init(function(checkedValues)
 		{
 			$.ajax({
 				url         : window.location,

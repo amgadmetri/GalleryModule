@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-md-12" id="galleryContent">
+<div class="col-xs-12 col-md-12" id="albumGalleryContent">
 	@foreach($albumGalleries as $gallery)
 	<div class="col-xs-6 col-md-4">
 		<div class="thumbnail">

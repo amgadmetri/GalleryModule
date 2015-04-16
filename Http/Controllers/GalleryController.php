@@ -39,16 +39,19 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 			return redirect()->back()->withInput()->with('message', '**Please attach the image file**');
 		}
 
-		$data['user_id'] = 1;
+		$data['user_id'] = \Auth::user()->id;
 		$data['path']    = $this->gallery->uploadPhoto($request->file('image'));
 		$gallery         = $this->gallery->createGallery(array_merge($request->except('path'), $data));
 
 		if ($request->ajax())
 		{
+			$single    = $request->input('single') === 'true' ? true : false;
+			$mediaType = $request->input('mediaType');
+			
 			$galleries = $this->gallery->getAllGalleries();
-			$galleries->setPath('medialibrary');
+			$galleries->setPath(url('gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
 
-			return view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
+			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single'))->render();
 		}
 
 		return redirect()->back()->with('message', 'Photo uploaded succssefuly');
@@ -56,16 +59,19 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 
 	public function postCreatevideo(GalleryFormRequest $request)
 	{
-		$data['user_id'] = 1;
+		$data['user_id'] = \Auth::user()->id;
 		$data['path']    = $this->gallery->getVedioCode($request->input('path'));
 		$gallery         = $this->gallery->createGallery(array_merge($request->except('path'), $data));
 
 		if ($request->ajax()) 
 		{
+			$single    = $request->input('single') === 'true' ? true : false;
+			$mediaType = $request->input('mediaType');
+			
 			$galleries = $this->gallery->getAllGalleries();
-			$galleries->setPath('medialibrary');
+			$galleries->setPath(url('gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
 
-			 return view('gallery::parts.modals.modalgalleryblock', compact('galleries'))->render();
+			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single'))->render();
 		}
 
 		return redirect()->back()->with('message', 'Video inserted in the database succssefuly');
@@ -81,11 +87,8 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 
 	public function postUpdategallery(GalleryFormRequest $request, $id)
 	{
-		$data['user_id'] = 1;
-		$this->gallery->updatePhoto(
-			$id, 
-			array_merge($request->only('file_name', 'caption', 'album_id'), $data)
-			);
+		$data['user_id'] = \Auth::user()->id;
+		$this->gallery->updatePhoto($id, array_merge($request->only('file_name', 'caption', 'album_id'), $data));
 	
 		return redirect()->back()->with('message', 'Photo updated succssefuly');
 	}

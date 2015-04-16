@@ -14,6 +14,7 @@
 Route::group(['prefix' => 'gallery'], function() {
 	
 	Route::controllers([
+		'medialibrary' => 'MediaLibraryController',
 		'album'        => 'AlbumController',
 		'thumbnail'    => 'ThumbnailsController',
 		'/'            => 'GalleryController'

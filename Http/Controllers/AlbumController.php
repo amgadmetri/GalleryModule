@@ -50,7 +50,7 @@ class AlbumController extends Controller {
 
 	public function postCreate(AlbumFormRequest $request)
 	{
-		$data['user_id'] = 1;
+		$data['user_id'] = \Auth::user()->id;
 		$album           = $this->gallery->createAlbum(array_merge($request->all(), $data));
 		$this->gallery->addGalleries($album, $request->input('gallery_ids'));
 
@@ -77,7 +77,7 @@ class AlbumController extends Controller {
 	
 	public function postUpdate(AlbumFormRequest $request, $id)
 	{
-		$data['user_id'] = 1;
+		$data['user_id'] = \Auth::user()->id;
 		$album           = $this->gallery->updateAlbum($id, array_merge($request->all(), $data));
 		$this->gallery->addGalleries($album, $request->input('gallery_ids'));
 
