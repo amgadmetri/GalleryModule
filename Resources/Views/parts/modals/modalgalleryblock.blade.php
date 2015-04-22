@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-md-12" id="galleryContent">
+<div class="col-xs-12 col-md-12" id="{{ $medialibraryName }}galleryContent">
 	@if($galleries)
 		@foreach($galleries as $gallery)
 			<div class="col-xs-6 col-md-4">
@@ -59,7 +59,7 @@
 					<li class="previous">
 						<a 
 						href = "{{ $galleries->previousPageUrl() }}" 
-						id   = "mediaLibraryPrevious"
+						id   = "{{ $medialibraryName }}mediaLibraryPrevious"
 						@if($galleries->previousPageUrl() == null)
 						class="btn disabled" role="button"
 						@endif
@@ -70,7 +70,7 @@
 					<li class="next">
 						<a 
 						href = "{{ $galleries->nextPageUrl() }}" 
-						id   = "mediaLibraryNext"
+						id   = "{{ $medialibraryName }}mediaLibraryNext"
 						@if($galleries->nextPageUrl() == null)
 						class="btn disabled" role="button"
 						@endif
@@ -86,7 +86,7 @@
 					<li class="previous">
 						<a 
 						href = "{{ $albums->previousPageUrl() }}" 
-						id   = "mediaLibraryPrevious"
+						id   = "{{ $medialibraryName }}mediaLibraryPrevious"
 						@if($albums->previousPageUrl() == null)
 						class="btn disabled" role="button"
 						@endif
@@ -97,7 +97,7 @@
 					<li class="next">
 						<a 
 						href = "{{ $albums->nextPageUrl() }}" 
-						id   = "mediaLibraryNext"
+						id   = "{{ $medialibraryName }}mediaLibraryNext"
 						@if($albums->nextPageUrl() == null)
 						class="btn disabled" role="button"
 						@endif

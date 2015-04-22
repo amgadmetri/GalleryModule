@@ -24,6 +24,33 @@
 			</tr>
 			@endforeach
 		</table>
+		<div class="col-xs-12 col-md-12">
+			<nav>
+				<ul class="pager">
+					<li class="previous">
+
+						<a 
+						href="{{ $albums->previousPageUrl() }}"
+						@if($albums->previousPageUrl() == null)
+						class="btn disabled" role="button"
+						@endif
+						>
+							<span aria-hidden="true">&larr;</span> Previous
+						</a>
+					</li>
+					<li class="next">
+						<a 
+						href="{{ $albums->nextPageUrl() }}"
+						@if($albums->nextPageUrl() == null)
+						class="btn disabled" role="button"
+						@endif
+						>
+							Next <span aria-hidden="true">&rarr;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 </div>
 @stop

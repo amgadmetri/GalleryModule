@@ -17,7 +17,9 @@ class AlbumController extends Controller {
 
 	public function getIndex()
 	{
-		$albums = $this->gallery->getAllAlbums();	
+		$albums = $this->gallery->getAllAlbums();
+		$albums->setPath('album');
+		
 		return view('gallery::albums.viewalbum', compact('albums'));
 	}
 

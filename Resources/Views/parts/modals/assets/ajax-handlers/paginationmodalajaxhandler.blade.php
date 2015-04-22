@@ -11,7 +11,7 @@
 
 				prepare: function (paginateId) {
 					paginate.paginateId     = paginateId;
-					paginate.galleryContent = $('div#galleryContent');
+					paginate.galleryContent = $('div#{{ $medialibraryName }}galleryContent');
 				},
 
 				events: function () {
@@ -39,10 +39,10 @@
 		$(document).ready(function (){
 
 			var mediaLibraryPrevious =  newPaginateObj();
-			mediaLibraryPrevious.init("#mediaLibraryPrevious");
+			mediaLibraryPrevious.init("#{{ $medialibraryName }}mediaLibraryPrevious");
 
 			var mediaLibraryNext =  newPaginateObj();
-			mediaLibraryNext.init("#mediaLibraryNext");
+			mediaLibraryNext.init("#{{ $medialibraryName }}mediaLibraryNext");
 		});
 
 	}(jQuery));
