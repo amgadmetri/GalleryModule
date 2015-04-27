@@ -3,8 +3,8 @@
 use App\Http\Controllers\Controller;
 use App\Modules\Gallery\Http\Requests\AlbumFormRequest;
 use App\Modules\Gallery\Repositories\GalleryRepository;
-
 use Illuminate\Http\Request;
+
 class AlbumController extends Controller {
 	
 	

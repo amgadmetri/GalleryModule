@@ -37,7 +37,7 @@
 						<div role="tabpanel" class="tab-pane" id="add{{ $medialibraryName }}">
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-								<div class="alert alert-warning" id="messageContainer">
+								<div class="alert alert-warning" id="{{ $medialibraryName }}messageContainer">
 									<ul>
 									</ul>
 								</div>

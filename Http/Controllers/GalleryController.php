@@ -45,13 +45,14 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 
 		if ($request->ajax())
 		{
-			$single    = $request->input('single') === 'true' ? true : false;
-			$mediaType = $request->input('mediaType');
+			$single           = $request->input('single') === 'true' ? true : false;
+			$mediaType        = $request->input('mediaType');
+			$medialibraryName = $request->input('medialibraryName');
 			
-			$galleries = $this->gallery->getAllGalleries();
+			$galleries        = $this->gallery->getAllGalleries();
 			$galleries->setPath(url('gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
 
-			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single'))->render();
+			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single', 'medialibraryName'))->render();
 		}
 
 		return redirect()->back()->with('message', 'Photo uploaded succssefuly');
@@ -65,13 +66,14 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 
 		if ($request->ajax()) 
 		{
-			$single    = $request->input('single') === 'true' ? true : false;
-			$mediaType = $request->input('mediaType');
+			$single           = $request->input('single') === 'true' ? true : false;
+			$mediaType        = $request->input('mediaType');
+			$medialibraryName = $request->input('medialibraryName');
 			
-			$galleries = $this->gallery->getAllGalleries();
+			$galleries        = $this->gallery->getAllGalleries();
 			$galleries->setPath(url('gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
 
-			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single'))->render();
+			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single', 'medialibraryName'))->render();
 		}
 
 		return redirect()->back()->with('message', 'Video inserted in the database succssefuly');

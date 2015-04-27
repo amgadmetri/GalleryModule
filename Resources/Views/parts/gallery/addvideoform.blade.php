@@ -1,4 +1,4 @@
-<form method="post" id="form_ajax_vedio" action="{{ url('gallery/createvideo') }}" >
+<form method="post" id="{{ $medialibraryName }}form_ajax_vedio" action="{{ url('gallery/createvideo') }}" >
 	<input name="_token" type="hidden" value="{{ csrf_token() }}">
 	<input name="single" type="hidden" value="{{ $single ? 'true' : 'false' }}">
 	<input name="mediaType" type="hidden" value="{{ $type }}">

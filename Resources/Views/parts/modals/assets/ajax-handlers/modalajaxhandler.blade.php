@@ -10,9 +10,9 @@
 
 				prepare: function (formId) {
 					addGallery.form               = $(formId);
-					addGallery.messageContainer   = $('div#messageContainer');
+					addGallery.messageContainer   = $('div#{{ $medialibraryName }}messageContainer');
 					addGallery.messageContainerUl = addGallery.messageContainer.find("ul");
-					addGallery.galleryContent     = $('div#galleryContent');
+					addGallery.galleryContent     = $('div#{{ $medialibraryName }}galleryContent');
 					addGallery.url                = addGallery.form.attr('action');
 					
 					addGallery.messageContainer.hide();
@@ -73,10 +73,10 @@
 		$(document).ready(function (){
 
 			var form_ajax_vedio =  newAddGalleryObj();
-			form_ajax_vedio.init("#form_ajax_vedio");
+			form_ajax_vedio.init("#{{ $medialibraryName }}form_ajax_vedio");
 
 			var form_ajax_photo =  newAddGalleryObj();
-			form_ajax_photo.init("#form_ajax_photo");
+			form_ajax_photo.init("#{{ $medialibraryName }}form_ajax_photo");
 		});
 
 	}(jQuery));
