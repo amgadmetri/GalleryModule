@@ -52,7 +52,8 @@ class GalleryRepository
 
 	public function createDirIfNotExists($dirName)
 	{
-		$dirName = public_path() . '/uploads/' . $dirName . '/' . $this->getCurrentDateDirectory();
+		$dirName = 'uploads/' . $dirName . '/' . $this->getCurrentDateDirectory();
+		
 		if( ! file_exists($dirName) && ! is_dir($dirName)) 
 		{
 			mkdir($dirName, 0755, true);

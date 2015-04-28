@@ -22,7 +22,7 @@ class Gallery extends Model {
 
     public function getStoragePathAttribute()
     {
-        return public_path() . "/uploads/images/" . $this->attributes['path'];
+        return "uploads/images/" . $this->attributes['path'];
     }
 
     public function getVideoPathAttribute()
@@ -37,7 +37,7 @@ class Gallery extends Model {
 
     public function getDirectoryAttribute()
     {
-        return public_path() . "/uploads/images/" . substr($this->attributes['path'], 0, 8);
+        return "uploads/images/" . substr($this->attributes['path'], 0, 8);
     }
 
     //relations//

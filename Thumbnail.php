@@ -14,7 +14,7 @@ class Thumbnail extends Model {
 
 	public function getStoragePathAttribute()
 	{
-		return public_path() . "/uploads/thumbnails/" . $this->attributes['path'];
+		return "uploads/thumbnails/" . $this->attributes['path'];
 	}
 
 	public function getUploadedFileNameAttribute()
@@ -24,7 +24,7 @@ class Thumbnail extends Model {
 
 	public function getDirectoryAttribute()
 	{
-		return public_path() . "/uploads/thumbnails/" . substr($this->attributes['path'], 0, 8);
+		return "uploads/thumbnails/" . substr($this->attributes['path'], 0, 8);
 	}
 
 	public function gallery()

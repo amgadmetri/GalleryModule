@@ -91,10 +91,18 @@ trait GalleryTrait{
 
 	public function getImageThumbnail($galleryId, $thumbName = false)
 	{
-		if ($thumbName) 
+		if($gallery = $this->getGallery($galleryId))
 		{
-			return $this->getGallery($galleryId)->thumbnails()->where('thumb_name', '=', $thumbName)->first();
+			if ($thumbName)
+			{
+				if($thumb = $gallery->thumbnails()->where('thumb_name', '=', $thumbName)->first())
+				{
+					return $thumb;
+				}
+				return $this->getGallery($galleryId);
+			}
+			return $this->getGallery($galleryId)->thumbnails;
 		}
-		$this->getGallery($galleryId)->thumbnails;
+		return false;
 	}
 }

@@ -40,6 +40,6 @@
 	</div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="{{ str_replace('public', 'app', url('Modules/Gallery/Resources/Views/parts/thumbnails/assets/jquery.Jcrop.min.css')) }}">
-<script src="{{ str_replace('public', 'app', url('Modules/Gallery/Resources/Views/parts/thumbnails/assets/jquery.Jcrop.min.js')) }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url('cms/app/Modules/Gallery/Resources/Views/parts/thumbnails/assets/jquery.Jcrop.min.css') }}">
+<script src="{{ url('cms/app/Modules/Gallery/Resources/Views/parts/thumbnails/assets/jquery.Jcrop.min.js') }}"></script>
 @include('gallery::parts.thumbnails.assets.cropform')

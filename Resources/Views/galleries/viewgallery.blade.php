@@ -18,7 +18,11 @@
 			@foreach($galleries as $gallery)
 			<tr>
 				<th>{{ $gallery->id }}</th>
-				<th><img src="{{ $gallery->path }}" width="70" height="70"></th>
+				@if ($gallery->type == 'photo')
+				<th><img src="{{ $gallery->path }}" alt="{{ $gallery->caption }}" width="70" height="70"></th>
+				@else
+				<img src='http://img.youtube.com/vi/{{ $gallery->video_path }}/0.jpg' alt="{{ $gallery->caption }}" width="70" height="70">
+				@endif
 				<th>{{ $gallery->file_name }}</th>
 				<th>{{ $gallery->caption }}</th>
 				<th>{{ $gallery->type }}</th>
