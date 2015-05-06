@@ -11,17 +11,36 @@
 				<th>Options</th>
 			</tr>
 			@foreach($albums as $album)
-			<tr>
-				<th>{{ $album->id }}</th>
-				<th>{{ $album->album_name }}</th>
-				<th>
-					<a class="btn btn-default" href='{{ url("/gallery/album/preview/$album->id") }}'role="button">View</a> 
-				</th>
-				<th>
-					<a class="btn btn-default" href='{{ url("/gallery/album/update/$album->id") }}'role="button">Edit</a> 
-					<a class="btn btn-default" href='{{ url("/gallery/album/delete/$album->id") }}'role="button">Delete</a> 
-				</th>
-			</tr>
+				<tr>
+					<th>{{ $album->id }}</th>
+					<th>{{ $album->album_name }}</th>
+					<th>
+						<a 
+						class="btn btn-default" 
+						href='{{ url("/gallery/album/preview/$album->id") }}'
+						role="button">
+						View
+						</a> 
+					</th>
+					<th>
+						@if(\AclRepository::can('edit', 'Albums'))
+							<a 
+							class ="btn btn-default" 
+							href  ='{{ url("/gallery/album/update/$album->id") }}'
+							role  ="button">
+							Edit
+							</a>
+						@endif
+						@if(\AclRepository::can('delete', 'Albums'))
+							<a 
+							class ="btn btn-default" 
+							href  ='{{ url("/gallery/album/delete/$album->id") }}'
+							role  ="button">
+							Delete
+							</a> 
+						@endif
+					</th>
+				</tr>
 			@endforeach
 		</table>
 		<div class="col-xs-12 col-md-12">
@@ -32,7 +51,7 @@
 						<a 
 						href="{{ $albums->previousPageUrl() }}"
 						@if($albums->previousPageUrl() == null)
-						class="btn disabled" role="button"
+							class="btn disabled" role="button"
 						@endif
 						>
 							<span aria-hidden="true">&larr;</span> Previous
@@ -42,7 +61,7 @@
 						<a 
 						href="{{ $albums->nextPageUrl() }}"
 						@if($albums->nextPageUrl() == null)
-						class="btn disabled" role="button"
+							class="btn disabled" role="button"
 						@endif
 						>
 							Next <span aria-hidden="true">&rarr;</span>

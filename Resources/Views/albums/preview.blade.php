@@ -25,10 +25,14 @@
 		<h3>Album : {{ $album->album_name }}</h3>
 		@include('gallery::parts.gallery.albumgalleriesblock')
 	</div>
-	<div class="col-sm-2">
-		<label for="album_name">Choos Galleries</label>
-		{!! $mediaLibrary !!}
-	</div>
+
+	@if(\AclRepository::can('edit', 'Albums'))
+		<div class="col-sm-2">
+			<label for="album_name">Choos Galleries</label>
+			{!! $mediaLibrary !!}
+		</div>
+	@endif
+	
 </div>
 @include('gallery::albums.assets.addalbumgalleries')
 @stop

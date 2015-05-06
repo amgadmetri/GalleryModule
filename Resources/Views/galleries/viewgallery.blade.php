@@ -1,9 +1,6 @@
 @extends('app')
 @section('content')
 <div class="container">
-	<div class="col-sm-3">
-		{!! $mediaLibrary !!}
-	</div>
 	<div class="col-sm-9">
 		<table class="table table-striped">
 			<tr>
@@ -19,9 +16,9 @@
 			<tr>
 				<th>{{ $gallery->id }}</th>
 				@if ($gallery->type == 'photo')
-				<th><img src="{{ $gallery->path }}" alt="{{ $gallery->caption }}" width="70" height="70"></th>
+					<th><img src="{{ $gallery->path }}" alt="{{ $gallery->caption }}" width="70" height="70"></th>
 				@else
-				<img src='http://img.youtube.com/vi/{{ $gallery->video_path }}/0.jpg' alt="{{ $gallery->caption }}" width="70" height="70">
+					<img src='http://img.youtube.com/vi/{{ $gallery->video_path }}/0.jpg' alt="{{ $gallery->caption }}" width="70" height="70">
 				@endif
 				<th>{{ $gallery->file_name }}</th>
 				<th>{{ $gallery->caption }}</th>
@@ -30,8 +27,22 @@
 					<a class="btn btn-default" href='{{ url("/gallery/preview/$gallery->id") }}'role="button">View</a> 
 				</th>
 				<th>
-					<a class="btn btn-default" href='{{ url("/gallery/updategallery/$gallery->id") }}' role="button">Edit</a> 
-					<a class="btn btn-default" href='{{ url("/gallery/delete/$gallery->id") }}' role="button">Delete</a> 
+					@if(\AclRepository::can('edit', 'Galleries'))
+						<a 
+						class ="btn btn-default" 
+						href  ='{{ url("/gallery/updategallery/$gallery->id") }}' 
+						role  ="button">
+						Edit
+						</a> 
+					@endif
+					@if(\AclRepository::can('delete', 'Galleries'))
+						<a 
+						class ="btn btn-default" 
+						href  ='{{ url("/gallery/delete/$gallery->id") }}' 
+						role  ="button">
+						Delete
+						</a> 
+					@endif
 				</th>
 			</tr>
 			@endforeach
@@ -40,11 +51,10 @@
 			<nav>
 				<ul class="pager">
 					<li class="previous">
-
 						<a 
-						href="{{ $galleries->previousPageUrl() }}"
+						href ="{{ $galleries->previousPageUrl() }}"
 						@if($galleries->previousPageUrl() == null)
-						class="btn disabled" role="button"
+							class="btn disabled" role="button"
 						@endif
 						>
 							<span aria-hidden="true">&larr;</span> Previous
@@ -52,9 +62,9 @@
 					</li>
 					<li class="next">
 						<a 
-						href="{{ $galleries->nextPageUrl() }}"
+						href ="{{ $galleries->nextPageUrl() }}"
 						@if($galleries->nextPageUrl() == null)
-						class="btn disabled" role="button"
+							class="btn disabled" role="button"
 						@endif
 						>
 							Next <span aria-hidden="true">&rarr;</span>

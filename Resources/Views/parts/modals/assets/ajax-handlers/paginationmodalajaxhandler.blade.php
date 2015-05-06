@@ -17,13 +17,14 @@
 				events: function () {
 					$(document).on('click', paginate.paginateId, function(e) {
 						e.preventDefault();
+						paginate.link = $(this).attr('href');
 						paginate.ajaxAction();
 					});
 				},
 
 				ajaxAction: function () {
 					$.ajax({
-						url         : $(paginate.paginateId).attr('href'),
+						url         : paginate.link,
 						type        : 'GET',
 						success		: function(data)
 						{
@@ -41,8 +42,11 @@
 			var mediaLibraryPrevious =  newPaginateObj();
 			mediaLibraryPrevious.init("#{{ $medialibraryName }}mediaLibraryPrevious");
 
-			var mediaLibraryNext =  newPaginateObj();
+			var mediaLibraryNext     =  newPaginateObj();
 			mediaLibraryNext.init("#{{ $medialibraryName }}mediaLibraryNext");
+
+			var mediaLibraryLinks    =  newPaginateObj();
+			mediaLibraryLinks.init("#{{ $medialibraryName }}mediaLibraryLinks");
 		});
 
 	}(jQuery));

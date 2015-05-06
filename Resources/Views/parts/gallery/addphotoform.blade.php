@@ -1,4 +1,4 @@
-<form method="post" id="{{ $medialibraryName }}form_ajax_photo" action="{{ url('gallery/createphoto') }}" enctype="multipart/form-data">
+<form class="col-sm-12" method="post" id="{{ $medialibraryName }}form_ajax_photo" action="{{ url('gallery/createphoto') }}" enctype="multipart/form-data">
 	<input name="_token" type="hidden" value="{{ csrf_token() }}">
 	<input name="path" type="hidden" value="{{ url('1') }}">
 	<input name="single" type="hidden" value="{{ $single ? 'true' : 'false' }}">
@@ -8,23 +8,23 @@
 	<div class="form-group">
 		<label for="file_name">Photo Name</label>
 		<input 
-		type="text" 
-		class="form-control" 
-		name="file_name" 
-		value="{{ old('file_name') }}" 
-		placeholder="Add file name here .." 
-		aria-describedby="sizing-addon2"
+		type             ="text" 
+		class            ="form-control" 
+		name             ="file_name" 
+		value            ="{{ old('file_name') }}" 
+		placeholder      ="Add file name here .." 
+		aria-describedby ="sizing-addon2"
 		>
 	</div>
 	<div class="form-group">
 		<label for="caption">Caption</label>
 		<input 
-		type="text" 
-		class="form-control" 
-		name="caption" 
-		value="{{ old('caption') }}" 
-		placeholder="Add file name here .." 
-		aria-describedby="sizing-addon2"
+		type             ="text" 
+		class            ="form-control" 
+		name             ="caption" 
+		value            ="{{ old('caption') }}" 
+		placeholder      ="Add file name here .." 
+		aria-describedby ="sizing-addon2"
 		>
 	</div>
 	<div class="form-group">
