@@ -38,8 +38,8 @@
 								<h3>{{ $thumbnail->thumb_name }}</h3>
 								<p>{{ $thumbnail->width }} X {{ $thumbnail->height }}</p>
 								<p>
-									@if(\AclRepository::can('delete', 'Thumbnails'))
-										<a class="btn btn-default" href='{{ url("/gallery/thumbnail/delete/$thumbnail->id") }}' role="button">Delete</a>
+									@if(\CMS::permissions()->can('delete', 'Thumbnails'))
+										<a class="btn btn-default" href='{{ url("admin/gallery/thumbnail/delete/$thumbnail->id") }}' role="button">Delete</a>
 									@endif
 								</p>
 							</div>
@@ -49,11 +49,11 @@
 
 				<br><b>{{ $gallery->caption }}</b><br>
 
-				@if(\AclRepository::can('crop', 'Thumbnails'))
+				@if(\CMS::permissions()->can('crop', 'Thumbnails'))
 					@include('gallery::parts.thumbnails.cropform')
 				@endif
 
-				@if(\AclRepository::can('resize', 'Thumbnails'))
+				@if(\CMS::permissions()->can('resize', 'Thumbnails'))
 					@include('gallery::parts.thumbnails.resizeform')
 				@endif
 

@@ -15,7 +15,6 @@ class Albums extends Model {
             'gallery_id')->withTimestamps();
     }
      
-
     public static function boot()
     {
         parent::boot();

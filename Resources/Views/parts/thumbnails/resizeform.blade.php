@@ -12,7 +12,7 @@
 				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 			</div>
 			<div class="modal-body">
-				<form method="post" action='{{  url("/gallery/thumbnail/resize/$gallery->id") }}'>
+				<form method="post" action='{{  url("admin/gallery/thumbnail/resize/$gallery->id") }}'>
 					<input type="hidden" name="_token" value="{{ csrf_token() }}" >
 					<div class="form-group">
 						<label for="thumb_name">Thumbnail name</label>

@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'gallery'], function() {
+Route::group(['prefix' => 'admin/gallery'], function() {
 	
 	Route::controllers([
 		'medialibrary' => 'MediaLibraryController',

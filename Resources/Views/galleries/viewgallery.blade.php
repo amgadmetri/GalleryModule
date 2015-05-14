@@ -24,21 +24,21 @@
 				<th>{{ $gallery->caption }}</th>
 				<th>{{ $gallery->type }}</th>
 				<th>
-					<a class="btn btn-default" href='{{ url("/gallery/preview/$gallery->id") }}'role="button">View</a> 
+					<a class="btn btn-default" href='{{ url("admin/gallery/preview/$gallery->id") }}'role="button">View</a> 
 				</th>
 				<th>
-					@if(\AclRepository::can('edit', 'Galleries'))
+					@if(\CMS::permissions()->can('edit', 'Galleries'))
 						<a 
 						class ="btn btn-default" 
-						href  ='{{ url("/gallery/updategallery/$gallery->id") }}' 
+						href  ='{{ url("admin/gallery/updategallery/$gallery->id") }}' 
 						role  ="button">
 						Edit
 						</a> 
 					@endif
-					@if(\AclRepository::can('delete', 'Galleries'))
+					@if(\CMS::permissions()->can('delete', 'Galleries'))
 						<a 
 						class ="btn btn-default" 
-						href  ='{{ url("/gallery/delete/$gallery->id") }}' 
+						href  ='{{ url("admin/gallery/delete/$gallery->id") }}' 
 						role  ="button">
 						Delete
 						</a> 

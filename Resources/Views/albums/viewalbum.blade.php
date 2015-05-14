@@ -17,24 +17,24 @@
 					<th>
 						<a 
 						class="btn btn-default" 
-						href='{{ url("/gallery/album/preview/$album->id") }}'
+						href='{{ url("admin/gallery/album/preview/$album->id") }}'
 						role="button">
 						View
 						</a> 
 					</th>
 					<th>
-						@if(\AclRepository::can('edit', 'Albums'))
+						@if(\CMS::permissions()->can('edit', 'Albums'))
 							<a 
 							class ="btn btn-default" 
-							href  ='{{ url("/gallery/album/update/$album->id") }}'
+							href  ='{{ url("admin/gallery/album/update/$album->id") }}'
 							role  ="button">
 							Edit
 							</a>
 						@endif
-						@if(\AclRepository::can('delete', 'Albums'))
+						@if(\CMS::permissions()->can('delete', 'Albums'))
 							<a 
 							class ="btn btn-default" 
-							href  ='{{ url("/gallery/album/delete/$album->id") }}'
+							href  ='{{ url("admin/gallery/album/delete/$album->id") }}'
 							role  ="button">
 							Delete
 							</a> 

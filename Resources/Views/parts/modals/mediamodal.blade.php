@@ -19,7 +19,7 @@
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#all{{ $medialibraryName }}" aria-controls="#all{{ $medialibraryName }}" role="tab" data-toggle="tab">All Galleries</a></li>
-						@if($galleries && \AclRepository::can('add', 'Galleries'))
+						@if($galleries && \CMS::permissions()->can('add', 'Galleries'))
 							<li role="presentation"><a href="#add{{ $medialibraryName }}" aria-controls="#add{{ $medialibraryName }}" role="tab" data-toggle="tab">Add Gallery</a></li>
 						@endif
 					</ul>

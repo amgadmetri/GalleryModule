@@ -3,19 +3,18 @@
 use App\Http\Controllers\BaseController;
 use App\Modules\Gallery\Http\Requests\ResizeFormRequest;
 use App\Modules\Gallery\Http\Requests\CropFormRequest;
-use App\Modules\Gallery\Repositories\GalleryRepository;
 
 class ThumbnailsController extends BaseController {
 	
-	public function __construct(GalleryRepository $gallery)
+	public function __construct()
 	{
-		parent::__construct($gallery, 'Thumbnails');
+		parent::__construct('Thumbnails');
 	}
 
 	public function postResize(ResizeFormRequest $request, $id)
 	{
 		$this->hasPermission('resize');
-		$this->repository->createThumbPhoto($id, $request->all());
+		\CMS::thumbnails()->createThumbPhoto($id, $request->all());
 
 		return redirect()->back()->with('message', 'Photo uploaded succssefuly');
 	}
@@ -23,7 +22,7 @@ class ThumbnailsController extends BaseController {
 	public function postCrop(CropFormRequest $request, $id)
 	{
 		$this->hasPermission('crop');
-		$this->repository->createThumbPhoto($id, $request->all(), 'crop');
+		\CMS::thumbnails()->createThumbPhoto($id, $request->all(), 'crop');
 
 		return redirect()->back()->with('message', 'Photo uploaded succssefuly');
 	}
@@ -31,7 +30,7 @@ class ThumbnailsController extends BaseController {
 	public function getDelete($id)
 	{	
 		$this->hasPermission('delete');
-		$this->repository->deleteThumbnail($id);
+		\CMS::thumbnails()->delete($id);
 		
 		return redirect()->back();
 

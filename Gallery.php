@@ -63,9 +63,14 @@ class Gallery extends Model {
             foreach ($gallery->thumbnails as $thumbnail) 
             {
               if (file_exists($thumbnail->storage_path)) unlink($thumbnail->storage_path);
-              $thumbnail->delete();
-          }
+                $thumbnail->delete();
+            }
 
+            if ($gallery->type =="photo") 
+            {
+                if (file_exists($gallery->storage_path)) unlink($gallery->storage_path);
+            }
+            
           $gallery->albums()->detach();
       });
     }

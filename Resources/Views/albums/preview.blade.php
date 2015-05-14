@@ -26,7 +26,7 @@
 		@include('gallery::parts.gallery.albumgalleriesblock')
 	</div>
 
-	@if(\AclRepository::can('edit', 'Albums'))
+	@if(\CMS::permissions()->can('edit', 'Albums'))
 		<div class="col-sm-2">
 			<label for="album_name">Choos Galleries</label>
 			{!! $mediaLibrary !!}

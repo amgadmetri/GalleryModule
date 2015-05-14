@@ -31,4 +31,14 @@ class Thumbnail extends Model {
 	{
 		return $this->belongsTo('App\Modules\Gallery\Gallery');
 	}
+
+	public static function boot()
+    {
+        parent::boot();
+
+        Thumbnail::deleting(function($thumbnail)
+        {
+        	if (file_exists($thumbnail->storage_path)) unlink($thumbnail->storage_path);
+        });
+    }
 }

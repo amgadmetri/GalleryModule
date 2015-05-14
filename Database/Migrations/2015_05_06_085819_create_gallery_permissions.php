@@ -12,28 +12,28 @@ class CreateGalleryPermissions extends Migration
 	 */
 	public function up()
 	{
-		foreach (\InstallationRepository::getModuleParts('gallery') as $modulePart) 
+		foreach (\CMS::CoreModuleParts()->getModuleParts('gallery') as $modulePart) 
 		{
 
 			if ($modulePart->part_key === 'Thumbnails') 
 			{
-				\AclRepository::insertDefaultItemPermissions(
-					$modulePart->part_key, 
-					$modulePart->id, 
-					[
-					'admin'   => ['resize', 'crop', 'delete'],
-					'manager' => ['resize', 'crop']
-					]);
+				\CMS::permissions()->insertDefaultItemPermissions(
+					                 $modulePart->part_key, 
+					                 $modulePart->id, 
+					                 [
+					                 'admin'   => ['resize', 'crop', 'delete'],
+					                 'manager' => ['resize', 'crop']
+					                 ]);
 			}
 			else
 			{
-				\AclRepository::insertDefaultItemPermissions(
-					$modulePart->part_key, 
-					$modulePart->id, 
-					[
-					'admin'   => ['show', 'add', 'edit', 'delete'],
-					'manager' => ['show', 'edit']
-					]);
+				\CMS::permissions()->insertDefaultItemPermissions(
+					                 $modulePart->part_key, 
+					                 $modulePart->id, 
+					                 [
+					                 'admin'   => ['show', 'add', 'edit', 'delete'],
+					                 'manager' => ['show', 'edit']
+					                 ]);
 			}
 		}
 	}
@@ -45,9 +45,9 @@ class CreateGalleryPermissions extends Migration
 	 */
 	public function down()
 	{
-		foreach (\InstallationRepository::getModuleParts('gallery') as $modulePart) 
+		foreach (\CMS::CoreModuleParts()->getModuleParts('gallery') as $modulePart) 
 		{
-			\AclRepository::deleteItemPermissions($modulePart->part_key);
+			\CMS::permissions()->deleteItemPermissions($modulePart->part_key);
 		}
 	}
 }

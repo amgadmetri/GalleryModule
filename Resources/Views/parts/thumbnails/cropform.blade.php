@@ -12,7 +12,7 @@
 			</div>
 			<div class="modal-body">
 				<img src='{{ $gallery->path }}' alt="{{ $gallery->caption }}" id="target" /><br>
-				<form method="post" id="crop_form" action="{{ url('/gallery/thumbnail/crop', $gallery->id) }}">
+				<form method="post" id="crop_form" action="{{ url('admin/gallery/thumbnail/crop', $gallery->id) }}">
 					<input name="_token" type="hidden" value="{{ csrf_token() }}">
 					<input type="hidden" name="x">       	
 					<input type="hidden" name="y">

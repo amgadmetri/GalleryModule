@@ -10,18 +10,18 @@
 				@endif
 				<div class="caption" align="center">
 					<p><h4>{{ $gallery->caption }}</h4>
-						@if(\AclRepository::can('show', 'Galleries'))
+						@if(\CMS::permissions()->can('show', 'Galleries'))
 							<a 
 							class  ="btn btn-default" 
-							href   ='{{ url("/gallery/preview/$gallery->id") }}' 
+							href   ='{{ url("admin/gallery/preview/$gallery->id") }}' 
 							target ="_blank"
 							>Preview
 							</a>
 						@endif
-						@if(\AclRepository::can('delete', 'Albums'))
+						@if(\CMS::permissions()->can('delete', 'Albums'))
 							<a 
 							class  ="btn btn-default" 
-							href   ='{{ url("/gallery/album/deletegallery", [$gallery->id, $album->id]) }}' 
+							href   ='{{ url("admin/gallery/album/deletegallery", [$gallery->id, $album->id]) }}' 
 							role   ="button">
 							Delete
 							</a>

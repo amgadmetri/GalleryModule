@@ -2,21 +2,20 @@
 
 use App\Http\Controllers\BaseController;
 use App\Modules\Gallery\Http\Requests\AlbumFormRequest;
-use App\Modules\Gallery\Repositories\GalleryRepository;
 use Illuminate\Http\Request;
 
 class AlbumController extends BaseController {
 	
 	
-	public function __construct(GalleryRepository $gallery)
+	public function __construct()
 	{
-		parent::__construct($gallery, 'Albums');
+		parent::__construct('Albums');
 	}
 
 	public function getIndex()
 	{
 		$this->hasPermission('show');
-		$albums = $this->repository->getAllAlbums();
+		$albums = \CMS::albums()->paginate(6);
 		$albums->setPath('album');
 		
 		return view('gallery::albums.viewalbum', compact('albums'));
@@ -28,13 +27,13 @@ class AlbumController extends BaseController {
 		if($request->ajax()) 
 		{
 			$this->hasPermission('edit');
-			$this->repository->addItemGalleries($this->repository->getAlbum($id), $request->input('ids'));
+			\CMS::galleries()->addItemGalleries(\CMS::albums()->find($id), $request->input('ids'));
 			return 'refresh';
 		}
 		
-		$album          = $this->repository->getAlbum($id);
-		$albumGalleries = $this->repository->getGalleries($album->galleries->lists('id'));	
-		$mediaLibrary   = $this->repository->getMediaLibrary();
+		$album          = \CMS::albums()->find($id);
+		$albumGalleries = \CMS::galleries()->getGalleries($album->galleries->lists('id'));	
+		$mediaLibrary   = \CMS::galleries()->getMediaLibrary();
 
 		return view('gallery::albums.preview' ,compact('album', 'albumGalleries', 'mediaLibrary'));
 	}
@@ -44,11 +43,11 @@ class AlbumController extends BaseController {
 		$this->hasPermission('add');
 		if($request->ajax()) 
 		{
-			$insertedGalleries = $this->repository->getGalleries($request->input('ids'));
+			$insertedGalleries = \CMS::galleries()->getGalleries($request->input('ids'));
 			return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
 		}
 
-		$mediaLibrary = $this->repository->getMediaLibrary();
+		$mediaLibrary = \CMS::galleries()->getMediaLibrary();
 		return view('gallery::albums.addalbum', compact('mediaLibrary'));
 	}
 
@@ -56,8 +55,8 @@ class AlbumController extends BaseController {
 	{
 		$this->hasPermission('add');
 		$data['user_id'] = \Auth::user()->id;
-		$album           = $this->repository->createAlbum(array_merge($request->all(), $data));
-		$this->repository->addGalleries($album, $request->input('gallery_ids'));
+		$album           = \CMS::albums()->create(array_merge($request->all(), $data));
+		\CMS::galleries()->addGalleries($album, $request->input('gallery_ids'));
 
 		return redirect()->back()->with('message', 'Album Created succssefuly');
 	}
@@ -67,14 +66,14 @@ class AlbumController extends BaseController {
 		$this->hasPermission('edit');
 		if($request->ajax()) 
 		{
-			$insertedGalleries = $this->repository->getGalleries($request->input('ids'));
+			$insertedGalleries = \CMS::galleries()->getGalleries($request->input('ids'));
 			return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
 		}
 
-		$album             = $this->repository->getAlbum($id);
-		$mediaLibrary      = $this->repository->getMediaLibrary();
+		$album             = \CMS::albums()->find($id);
+		$mediaLibrary      = \CMS::galleries()->getMediaLibrary();
 		
-		$albumGalleriesIds = $this->repository->getGalleries($album->galleries->lists('id'));
+		$albumGalleriesIds = \CMS::galleries()->getGalleries($album->galleries->lists('id'));
 		$albumGalleries    = view('gallery::parts.gallery.galleryblock', ['insertedGalleries' => $albumGalleriesIds])->render();
 		
 
@@ -85,8 +84,8 @@ class AlbumController extends BaseController {
 	{
 		$this->hasPermission('edit');
 		$data['user_id'] = \Auth::user()->id;
-		$album           = $this->repository->updateAlbum($id, array_merge($request->all(), $data));
-		$this->repository->addGalleries($album, $request->input('gallery_ids'));
+		$album           = \CMS::albums()->update($id, array_merge($request->all(), $data));
+		\CMS::galleries()->addGalleries($album, $request->input('gallery_ids'));
 
 		return redirect()->back()->with('message', 'Album updated succssefuly');
 	}
@@ -94,7 +93,7 @@ class AlbumController extends BaseController {
 	public function getDelete($id)
 	{
 		$this->hasPermission('delete');
-		$this->repository->deleteAlbum($id);
+		\CMS::albums()->delete($id);
 		
 		return redirect()->back()->with('message', 'album Deleted succssefuly');
 	}
@@ -102,7 +101,7 @@ class AlbumController extends BaseController {
 	public function getDeletegallery($galleryId, $albumId)
 	{
 		$this->hasPermission('edit');
-		$this->repository->deleteItemGallery($this->repository->getAlbum($albumId), $galleryId);
+		\CMS::galleries()->deleteItemGallery(\CMS::albums()->find($albumId), $galleryId);
 
 		return redirect()->back()->with('message', 'Gallery Deleted succssefuly');
 	}

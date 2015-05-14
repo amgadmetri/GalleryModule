@@ -3,22 +3,20 @@
 use App\Http\Controllers\BaseController;
 use App\Modules\Gallery\Http\Requests\GalleryFormRequest;
 use App\Modules\Gallery\Http\Requests\CropFormRequest;
-use App\Modules\Gallery\Repositories\GalleryRepository;
 
  class GalleryController extends BaseController {
 	
-	
- 	public function __construct(GalleryRepository $gallery)
+ 	public function __construct()
 	{
-		parent::__construct($gallery, 'Galleries');
+		parent::__construct('Galleries');
 	}
 
  	//display all the galleries
 	public function getIndex()
 	{
 		$this->hasPermission('show');
-		$galleries = $this->repository->getAllGalleries();
-		$galleries->setPath('gallery');
+		$galleries = \CMS::galleries()->getAllGalleries('all', 3);
+		$galleries->setPath(url('admin/gallery'));
 
 		return view('gallery::galleries.viewgallery', compact('galleries'));
 	}
@@ -26,7 +24,7 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 	public function getPreview($id)
 	{
 		$this->hasPermission('show');
-		$gallery = $this->repository->getGallery($id);
+		$gallery = \CMS::galleries()->find($id);
 		return view('gallery::galleries.preview' ,compact('gallery'));
 	}
 	
@@ -40,8 +38,8 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 		}
 
 		$data['user_id'] = \Auth::user()->id;
-		$data['path']    = $this->repository->uploadPhoto($request->file('image'));
-		$gallery         = $this->repository->createGallery(array_merge($request->except('path'), $data));
+		$data['path']    = \CMS::galleries()->uploadPhoto($request->file('image'));
+		$gallery         = \CMS::galleries()->create(array_merge($request->except('path'), $data));
 
 		if ($request->ajax())
 		{
@@ -49,8 +47,8 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 			$mediaType        = $request->input('mediaType');
 			$medialibraryName = $request->input('medialibraryName');
 			
-			$galleries        = $this->repository->getAllGalleries();
-			$galleries->setPath(url('gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
+			$galleries        = \CMS::galleries()->getAllGalleries($mediaType);
+			$galleries->setPath(url('admin/gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
 
 			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single', 'medialibraryName'))->render();
 		}
@@ -62,8 +60,8 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 	{
 		$this->hasPermission('add');
 		$data['user_id'] = \Auth::user()->id;
-		$data['path']    = $this->repository->getVedioCode($request->input('path'));
-		$gallery         = $this->repository->createGallery(array_merge($request->except('path'), $data));
+		$data['path']    = \CMS::galleries()->getVedioCode($request->input('path'));
+		$gallery         = \CMS::galleries()->create(array_merge($request->except('path'), $data));
 
 		if ($request->ajax()) 
 		{
@@ -71,8 +69,8 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 			$mediaType        = $request->input('mediaType');
 			$medialibraryName = $request->input('medialibraryName');
 			
-			$galleries        = $this->repository->getAllGalleries();
-			$galleries->setPath(url('gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
+			$galleries        = \CMS::galleries()->getAllGalleries();
+			$galleries->setPath(url('admin/gallery/medialibrary/paginate', [$mediaType, $request->input('single')]));
 
 			return view('gallery::parts.modals.modalgalleryblock', compact('galleries', 'single', 'medialibraryName'))->render();
 		}
@@ -84,7 +82,7 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 	public function getUpdategallery($id)
 	{
 		$this->hasPermission('edit');
-		$gallery = $this->repository->getGallery($id);
+		$gallery = \CMS::galleries()->find($id);
 
 		return view('gallery::galleries.updategallery', compact('gallery'));
 	}
@@ -94,7 +92,7 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 	{
 		$this->hasPermission('edit');
 		$data['user_id'] = \Auth::user()->id;
-		$this->repository->updatePhoto($id, array_merge($request->only('file_name', 'caption', 'album_id'), $data));
+		\CMS::galleries()->update($id, array_merge($request->only('file_name', 'caption', 'album_id'), $data));
 	
 		return redirect()->back()->with('message', 'Photo updated succssefuly');
 	}
@@ -103,7 +101,7 @@ use App\Modules\Gallery\Repositories\GalleryRepository;
 	public function getDelete($id)
 	{
 		$this->hasPermission('delete');
-		$this->repository->deleteGallery($id);
+		\CMS::galleries()->delete($id);
 		
 		return redirect()->back()->with('message', 'gallery Deleted succssefuly');
 	}
