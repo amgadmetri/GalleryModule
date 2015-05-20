@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 
-		url     = '{{ url("admin/gallery/album/addalbumgalleries") }}';
+		url     = '{{ url("admin/gallery/album/editalbumgalleries", $album->id) }}';
 		mediaLibrary.init(function(checkedValues)
 		{
 			$.ajax({
@@ -10,7 +10,7 @@
 				data        : {'ids': checkedValues},
 				success     : function(data)
 				{
-					$('#insertedGalleries').empty().append(data);
+					location.reload();
 				}
 			});
 		});

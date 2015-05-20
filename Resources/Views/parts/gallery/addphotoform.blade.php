@@ -1,8 +1,8 @@
 <form class="col-sm-12" method="post" id="{{ $medialibraryName }}form_ajax_photo" action="{{ url('admin/gallery/createphoto') }}" enctype="multipart/form-data">
 	<input name="_token" type="hidden" value="{{ csrf_token() }}">
-	<input name="path" type="hidden" value="{{ url(0) }}">
-	<input name="single" type="hidden" value="{{ $single ? 'true' : 'false' }}">
+	<input name="select" type="hidden" value="{{ $select }}">
 	<input name="mediaType" type="hidden" value="{{ $type }}">
+	<input name="perPage" type="hidden" value="{{ $perPage }}">
 	<input name="medialibraryName" type="hidden" value="{{ $medialibraryName }}">
 
 	<div class="form-group">

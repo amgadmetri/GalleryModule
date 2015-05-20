@@ -5,7 +5,7 @@
 				<div class="thumbnail">
 					<a href="#" id="{{ $medialibraryName }}galleryLink">
 
-						@if($single)
+						@if($select === 'single')
 							<input name="gallery" type="radio" id="{{ $medialibraryName }}gallery" value="{{ $gallery->id }}">
 						@else
 							<input name="gallery" type="checkbox" id="{{ $medialibraryName }}gallery" value="{{ $gallery->id }}">
@@ -21,7 +21,7 @@
 					</a>
 					<div class="caption" align="center">
 						<p><h4>{{ $gallery->caption }}</h4>
-							<a href='{{ url("admin/gallery/preview/$gallery->id") }}' target="_blank">Preview</a>
+							<a href='{{ url("admin/gallery/show/$gallery->id") }}' target="_blank">Preview</a>
 						</p>
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 				<div class="thumbnail">
 					<a href="#" id="{{ $medialibraryName }}galleryLink">
 
-						@if($single)
+						@if($select === 'single')
 							<input name="gallery" type="radio" id="{{ $medialibraryName }}gallery" value="{{ $album->id }}">
 						@else
 							<input name="gallery" type="checkbox" id="{{ $medialibraryName }}gallery" value="{{ $album->id }}">
@@ -49,7 +49,7 @@
 					</a>
 					<div class="caption" align="center">
 						<p><h4>{{ $album->album_name }}</h4>
-							<a href='{{ url("admin/gallery/album/preview/$album->id") }}' target="_blank">Preview</a>
+							<a href='{{ url("admin/gallery/album/show/$album->id") }}' target="_blank">Preview</a>
 						</p>
 					</div>
 				</div>

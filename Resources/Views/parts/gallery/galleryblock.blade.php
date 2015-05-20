@@ -12,7 +12,7 @@
 				<p>
 					<h4>{{ $gallery->caption }}</h4>
 					@if(\CMS::permissions()->can('show', 'Galleries'))
-						<a href='{{ url("admin/gallery/preview/$gallery->id") }}' target="_blank">Preview</a>
+						<a href='{{ url("admin/gallery/show/$gallery->id") }}' target="_blank">Preview</a>
 					@endif
 				</p>
 			</div>

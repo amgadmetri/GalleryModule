@@ -1,7 +1,8 @@
 <form class="col-sm-12" method="post" id="{{ $medialibraryName }}form_ajax_vedio" action="{{ url('admin/gallery/createvideo') }}" >
 	<input name="_token" type="hidden" value="{{ csrf_token() }}">
-	<input name="single" type="hidden" value="{{ $single ? 'true' : 'false' }}">
+	<input name="select" type="hidden" value="{{ $select }}">
 	<input name="mediaType" type="hidden" value="{{ $type }}">
+	<input name="perPage" type="hidden" value="{{ $perPage }}">
 	<input name="medialibraryName" type="hidden" value="{{ $medialibraryName }}">
 	
 	<div class="form-group">

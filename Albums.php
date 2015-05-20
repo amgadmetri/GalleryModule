@@ -4,9 +4,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Albums extends Model {
 
+    /**
+     * Spescify the storage table.
+     * 
+     * @var table
+     */
     protected $table    = 'albums';
+
+    /**
+     * Specify the fields allowed for the mass assignment.
+     * 
+     * @var fillable
+     */
     protected $fillable = ['user_id','album_name'];
 
+    /**
+     * Get the album galleries.
+     * 
+     * @return collection
+     */
     public function galleries()
     {
         return $this->belongsToMany('App\Modules\Gallery\Gallery',
@@ -19,6 +35,10 @@ class Albums extends Model {
     {
         parent::boot();
 
+        /**
+         * Remove the galleries related to 
+         * the deleted album.
+         */
         Albums::deleting(function($album)
         {
             $album->galleries()->detach();

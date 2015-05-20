@@ -19,10 +19,8 @@ class CreateGalleryTable extends Migration
 				$table->string('file_name', 150)->index();
 				$table->string('path', 150);
 				$table->string('caption', 150)->index();
-				
 				$table->bigInteger('user_id')->unsigned();
 				$table->foreign('user_id')->references('id')->on('users');
-
 				$table->enum('type', ['photo', 'video'])->index();
 				$table->timestamps();
 			});

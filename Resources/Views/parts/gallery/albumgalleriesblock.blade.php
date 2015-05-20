@@ -13,7 +13,7 @@
 						@if(\CMS::permissions()->can('show', 'Galleries'))
 							<a 
 							class  ="btn btn-default" 
-							href   ='{{ url("admin/gallery/preview/$gallery->id") }}' 
+							href   ='{{ url("admin/gallery/show/$gallery->id") }}' 
 							target ="_blank"
 							>Preview
 							</a>

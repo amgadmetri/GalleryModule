@@ -34,5 +34,5 @@
 	@endif
 	
 </div>
-@include('gallery::albums.assets.addalbumgalleries')
+@include('gallery::albums.assets.editalbumgalleries')
 @stop

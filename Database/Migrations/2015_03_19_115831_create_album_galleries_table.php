@@ -16,13 +16,10 @@ class CreateAlbumGalleriesTable extends Migration
 		{
 			Schema::create('album_galleries', function(Blueprint $table) {
 				$table->bigIncrements('id');
-
 				$table->bigInteger('gallery_id')->unsigned();
 				$table->foreign('gallery_id')->references('id')->on('gallery');
-
 				$table->bigInteger('album_id')->unsigned();
 				$table->foreign('album_id')->references('id')->on('albums');
-
 				$table->timestamps();
 			});
 		}

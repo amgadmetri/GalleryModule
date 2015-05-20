@@ -2,20 +2,38 @@
 
 use App\AbstractRepositories\AbstractRepository;
 use Intervention\Image\Facades\Image;
-use App\Modules\Gallery\Thumbnail;
 
 class ThumbnailRepository extends AbstractRepository
 {
+	/**
+	 * Return the model full namespace.
+	 * 
+	 * @return string
+	 */
 	protected function getModel()
 	{
 		return 'App\Modules\Gallery\Thumbnail';
 	}
 
+	/**
+	 * Return the module relations.
+	 * 
+	 * @return array
+	 */
 	protected function getRelations()
 	{
 		return ['gallery'];
 	}
 
+	/**
+	 * Create thumbnail based on the given thumb type , 
+	 * resize or crop with the given data.
+	 * 
+	 * @param  integer $id
+	 * @param  array   $data
+	 * @param  string  $thumbType
+	 * @return void
+	 */
 	public function createThumbPhoto($id, $data, $thumbType = 'resize')
 	{
 		$gallery = \CMS::galleries()->find($id);		
@@ -23,22 +41,19 @@ class ThumbnailRepository extends AbstractRepository
 
 		if($thumbType == 'resize')
 		{
-			$croppedImage = $image->resize($data['width'], $data['height']);
+			$thumbImage = $image->resize($data['width'], $data['height']);
 		}
 		else
 		{
-			$croppedImage = $image->crop($data['width'], $data['height'], $data['x'], $data['y']);
+			$thumbImage = $image->crop($data['width'], $data['height'], $data['x'], $data['y']);
 		}
 
-		$croppedImage->save(\CMS::galleries()->createDirIfNotExists('thumbnails') . 
-	                        $data['thumb_name'] . '_' . $gallery->uploaded_file_name);
-
-		$thumbnail = new Thumbnail(
+		$thumbImage->save(\CMS::galleries()->createDirIfNotExists('thumbnails') . $data['thumb_name'] . '_' . $gallery->uploaded_file_name);
+		$thumbnail = new $this->model(
 			array_merge(
 				$data, 
 				[
-					'path' => \CMS::galleries()->getCurrentDateDirectory() .
-					$data['thumb_name'] . '_' . $gallery->uploaded_file_name
+					'path' => \CMS::galleries()->getCurrentDateDirectory() . $data['thumb_name'] . '_' . $gallery->uploaded_file_name
 				])
 			);
 		

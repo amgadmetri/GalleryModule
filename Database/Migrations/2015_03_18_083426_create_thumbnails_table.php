@@ -16,10 +16,8 @@ class CreateThumbnailsTable extends Migration
 		{
 			Schema::create('thumbnails', function(Blueprint $table) {
 				$table->bigIncrements('id');
-
 				$table->bigInteger('photo_id')->unsigned();
 				$table->foreign('photo_id')->references('id')->on('gallery');
-
 				$table->string('thumb_name', 150)->unique()->index();
 				$table->string('path', 150);
 				$table->integer('width')->unsigned()->index();

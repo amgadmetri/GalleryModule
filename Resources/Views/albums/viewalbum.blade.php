@@ -7,7 +7,6 @@
 			<tr>
 				<th>ID</th>
 				<th>Album name</th>
-				<th>Preview</th>
 				<th>Options</th>
 			</tr>
 			@foreach($albums as $album)
@@ -15,18 +14,18 @@
 					<th>{{ $album->id }}</th>
 					<th>{{ $album->album_name }}</th>
 					<th>
-						<a 
-						class="btn btn-default" 
-						href='{{ url("admin/gallery/album/preview/$album->id") }}'
-						role="button">
-						View
-						</a> 
-					</th>
-					<th>
+						@if(\CMS::permissions()->can('show', 'Albums'))
+							<a 
+							class="btn btn-default" 
+							href='{{ url("admin/gallery/album/show/$album->id") }}'
+							role="button">
+							galleries
+							</a> 
+						@endif
 						@if(\CMS::permissions()->can('edit', 'Albums'))
 							<a 
 							class ="btn btn-default" 
-							href  ='{{ url("admin/gallery/album/update/$album->id") }}'
+							href  ='{{ url("admin/gallery/album/edit/$album->id") }}'
 							role  ="button">
 							Edit
 							</a>

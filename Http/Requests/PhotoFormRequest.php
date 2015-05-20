@@ -3,7 +3,7 @@ namespace App\Modules\Gallery\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GalleryFormRequest extends FormRequest
+class PhotoFormRequest extends FormRequest
 {
 	/**
 	 * Get the validation rules that apply to the request.
@@ -14,7 +14,6 @@ class GalleryFormRequest extends FormRequest
 	{
 		return [
 		'file_name' => 'required|max:150',
-		'path'      => 'required|max:150|url',
 		'caption'   => 'required|max:150',
 		'type'      => 'required'
 		];

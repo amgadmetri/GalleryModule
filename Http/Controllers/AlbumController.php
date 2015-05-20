@@ -6,31 +6,47 @@ use Illuminate\Http\Request;
 
 class AlbumController extends BaseController {
 	
-	
+	/**
+	 * Specify a list of extra permissions.
+	 * 
+	 * @var permissions
+	 */
+	protected $permissions = [
+	'getShow'               => 'show',
+	'getEditalbumgalleries' => 'edit',
+	'getAddalbumgalleries'  => 'add',
+	'getDeletegallery'      => 'edit',
+	];
+
+	/**
+	 * Create new AlbumController instance.
+	 */
 	public function __construct()
 	{
 		parent::__construct('Albums');
 	}
 
+	/**
+	 * Display a listing of the albums.
+	 * 
+	 * @return Response
+	 */
 	public function getIndex()
 	{
-		$this->hasPermission('show');
 		$albums = \CMS::albums()->paginate(6);
 		$albums->setPath('album');
 		
 		return view('gallery::albums.viewalbum', compact('albums'));
 	}
 
-	public function getPreview($id, Request $request)
+	/**
+	 * Display a specified album.
+	 * 
+	 * @param  integer $id
+	 * @return Response
+	 */
+	public function getShow($id)
 	{
-		$this->hasPermission('show');
-		if($request->ajax()) 
-		{
-			$this->hasPermission('edit');
-			\CMS::galleries()->addItemGalleries(\CMS::albums()->find($id), $request->input('ids'));
-			return 'refresh';
-		}
-		
 		$album          = \CMS::albums()->find($id);
 		$albumGalleries = \CMS::galleries()->getGalleries($album->galleries->lists('id'));	
 		$mediaLibrary   = \CMS::galleries()->getMediaLibrary();
@@ -38,22 +54,25 @@ class AlbumController extends BaseController {
 		return view('gallery::albums.preview' ,compact('album', 'albumGalleries', 'mediaLibrary'));
 	}
 
-	public function getCreate(Request $request)
+	/**
+	 * Show the form for creating a new album.
+	 * 
+	 * @return Response
+	 */
+	public function getCreate()
 	{	
-		$this->hasPermission('add');
-		if($request->ajax()) 
-		{
-			$insertedGalleries = \CMS::galleries()->getGalleries($request->input('ids'));
-			return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
-		}
-
-		$mediaLibrary = \CMS::galleries()->getMediaLibrary();
+		$mediaLibrary = \CMS::galleries()->getMediaLibrary('all', 'multi', 'mediaLibrary', 1);
 		return view('gallery::albums.addalbum', compact('mediaLibrary'));
 	}
 
+	/**
+	 * Store a newly created album in storage.
+	 * 
+	 * @param  AlbumFormRequest  $request
+	 * @return Response
+	 */
 	public function postCreate(AlbumFormRequest $request)
 	{
-		$this->hasPermission('add');
 		$data['user_id'] = \Auth::user()->id;
 		$album           = \CMS::albums()->create(array_merge($request->all(), $data));
 		\CMS::galleries()->addGalleries($album, $request->input('gallery_ids'));
@@ -61,28 +80,31 @@ class AlbumController extends BaseController {
 		return redirect()->back()->with('message', 'Album Created succssefuly');
 	}
 	
-	public function getUpdate($id, Request $request)
+	/**
+	 * Show the form for editing the specified album.
+	 * 
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getEdit($id)
 	{
-		$this->hasPermission('edit');
-		if($request->ajax()) 
-		{
-			$insertedGalleries = \CMS::galleries()->getGalleries($request->input('ids'));
-			return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
-		}
-
-		$album             = \CMS::albums()->find($id);
-		$mediaLibrary      = \CMS::galleries()->getMediaLibrary();
+		$album          = \CMS::albums()->find($id);
+		$mediaLibrary   = \CMS::galleries()->getMediaLibrary();
+		$albumGalleries = \CMS::galleries()->getGalleries($album->galleries->lists('id'));
+		$albumGalleries = view('gallery::parts.gallery.galleryblock', ['insertedGalleries' => $albumGalleries])->render();
 		
-		$albumGalleriesIds = \CMS::galleries()->getGalleries($album->galleries->lists('id'));
-		$albumGalleries    = view('gallery::parts.gallery.galleryblock', ['insertedGalleries' => $albumGalleriesIds])->render();
-		
-
 		return view('gallery::albums.updatealbum', compact('album', 'mediaLibrary', 'albumGalleries'));
 	}
-	
-	public function postUpdate(AlbumFormRequest $request, $id)
+		
+	/**
+	 * Update the specified album in storage.
+	 * 
+	 * @param  int  $id
+	 * @param  AlbumFormRequest  $request
+	 * @return Response
+	 */
+	public function postEdit($id, AlbumFormRequest $request)
 	{
-		$this->hasPermission('edit');
 		$data['user_id'] = \Auth::user()->id;
 		$album           = \CMS::albums()->update($id, array_merge($request->all(), $data));
 		\CMS::galleries()->addGalleries($album, $request->input('gallery_ids'));
@@ -90,19 +112,54 @@ class AlbumController extends BaseController {
 		return redirect()->back()->with('message', 'Album updated succssefuly');
 	}
 	
+	/**
+	 * Remove the specified album from storage.
+	 * 
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function getDelete($id)
 	{
-		$this->hasPermission('delete');
 		\CMS::albums()->delete($id);
-		
 		return redirect()->back()->with('message', 'album Deleted succssefuly');
 	}
 
+	/**
+	 * Remove a specified gallery from a specified album.
+	 * 
+	 * @param  integer $galleryId
+	 * @param  integer $albumId
+	 * @return Response
+	 */
 	public function getDeletegallery($galleryId, $albumId)
 	{
-		$this->hasPermission('edit');
 		\CMS::galleries()->deleteItemGallery(\CMS::albums()->find($albumId), $galleryId);
+		return redirect()->back()->with('message', 'Gallery deleted succssefuly');
+	}
 
-		return redirect()->back()->with('message', 'Gallery Deleted succssefuly');
+	/**
+	 * Add the selected galleries to a specified album.
+	 * 
+	 * @param  Request $request
+	 * @return Response
+	 */
+	public function getEditalbumgalleries($id, Request $request)
+	{
+		\CMS::galleries()->addItemGalleries(\CMS::albums()->find($id), $request->input('ids'));
+		return redirect()->back()->with('message', 'Album updated succssefuly');
+	}
+
+	/**
+	 * Return a gallery array from the given ids,
+	 * handle the ajax request for inserting galleries
+	 * to the album.
+	 *
+	 * @param  Request $request
+	 * @return Response
+	 */
+	public function getAddalbumgalleries(Request $request)
+	{
+		$insertedGalleries = \CMS::galleries()->getGalleries($request->input('ids'));
+		return view('gallery::parts.gallery.galleryblock', compact('insertedGalleries'))->render();
 	}
 }

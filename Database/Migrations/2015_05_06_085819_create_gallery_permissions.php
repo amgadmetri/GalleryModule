@@ -21,8 +21,8 @@ class CreateGalleryPermissions extends Migration
 					                 $modulePart->part_key, 
 					                 $modulePart->id, 
 					                 [
-					                 'admin'   => ['resize', 'crop', 'delete'],
-					                 'manager' => ['resize', 'crop']
+						                 'admin'   => ['resize', 'crop', 'delete'],
+						                 'manager' => ['resize', 'crop']
 					                 ]);
 			}
 			else
@@ -31,8 +31,8 @@ class CreateGalleryPermissions extends Migration
 					                 $modulePart->part_key, 
 					                 $modulePart->id, 
 					                 [
-					                 'admin'   => ['show', 'add', 'edit', 'delete'],
-					                 'manager' => ['show', 'edit']
+						                 'admin'   => ['show', 'add', 'edit', 'delete'],
+						                 'manager' => ['show', 'edit']
 					                 ]);
 			}
 		}

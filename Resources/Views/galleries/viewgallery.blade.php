@@ -9,7 +9,6 @@
 				<th>name</th>
 				<th>Caption</th>
 				<th>Type</th>
-				<th>Preview</th>
 				<th>Options</th>
 			</tr>
 			@foreach($galleries as $gallery)
@@ -24,13 +23,18 @@
 				<th>{{ $gallery->caption }}</th>
 				<th>{{ $gallery->type }}</th>
 				<th>
-					<a class="btn btn-default" href='{{ url("admin/gallery/preview/$gallery->id") }}'role="button">View</a> 
-				</th>
-				<th>
+					@if(\CMS::permissions()->can('show', 'Galleries'))
+						<a 
+						class ="btn btn-default" 
+						href  ='{{ url("admin/gallery/show/$gallery->id") }}'
+						role  ="button">
+						View
+						</a> 
+					@endif
 					@if(\CMS::permissions()->can('edit', 'Galleries'))
 						<a 
 						class ="btn btn-default" 
-						href  ='{{ url("admin/gallery/updategallery/$gallery->id") }}' 
+						href  ='{{ url("admin/gallery/edit/$gallery->id") }}' 
 						role  ="button">
 						Edit
 						</a> 
