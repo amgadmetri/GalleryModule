@@ -84,7 +84,7 @@ use App\Modules\Gallery\Http\Requests\PhotoFormRequest;
 	 * Store a newly created gallery of 
 	 * type video in storage.
 	 * 
-	 * @param  PhotoFormRequest  $request
+	 * @param  VideoFormRequest  $request
 	 * @return Response
 	 */
 	public function postCreatevideo(VideoFormRequest $request)
