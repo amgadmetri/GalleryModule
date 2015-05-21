@@ -90,7 +90,7 @@ use App\Modules\Gallery\Http\Requests\PhotoFormRequest;
 	public function postCreatevideo(VideoFormRequest $request)
 	{
 		$data['user_id'] = \Auth::user()->id;
-		$data['path']    = \CMS::galleries()->getVedioCode($request->input('path'));
+		$data['path']    = \CMS::galleries()->getVideoCode($request->input('path'));
 		$gallery         = \CMS::galleries()->create(array_merge($request->except('path'), $data));
 
 		/**

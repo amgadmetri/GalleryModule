@@ -72,8 +72,8 @@
 
 		$(document).ready(function (){
 
-			var form_ajax_vedio =  newAddGalleryObj();
-			form_ajax_vedio.init("#{{ $medialibraryName }}form_ajax_vedio");
+			var form_ajax_video =  newAddGalleryObj();
+			form_ajax_video.init("#{{ $medialibraryName }}form_ajax_video");
 
 			var form_ajax_photo =  newAddGalleryObj();
 			form_ajax_photo.init("#{{ $medialibraryName }}form_ajax_photo");

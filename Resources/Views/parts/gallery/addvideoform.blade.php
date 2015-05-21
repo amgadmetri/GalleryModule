@@ -1,4 +1,4 @@
-<form class="col-sm-12" method="post" id="{{ $medialibraryName }}form_ajax_vedio" action="{{ url('admin/gallery/createvideo') }}" >
+<form class="col-sm-12" method="post" id="{{ $medialibraryName }}form_ajax_video" action="{{ url('admin/gallery/createvideo') }}" >
 	<input name="_token" type="hidden" value="{{ csrf_token() }}">
 	<input name="select" type="hidden" value="{{ $select }}">
 	<input name="mediaType" type="hidden" value="{{ $type }}">
