@@ -6,5 +6,6 @@
     "repo_link": "https:\/\/github.com\/amgadmetri\/MarvelGallery.git",
     "type": "plugin",
     "enabled": true,
-    "module_parts": ["Albums", "Galleries", "Thumbnails"]
+    "module_parts": ["Albums", "Galleries", "Thumbnails"],
+    "module_parts_menu": ["Albums"]
 }

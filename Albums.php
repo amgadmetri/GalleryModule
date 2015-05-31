@@ -19,6 +19,17 @@ class Albums extends Model {
     protected $fillable = ['user_id','album_name'];
 
     /**
+     * Get the name that will be displayed in the 
+     * menu link.
+     * 
+     * @return string
+     */
+    public function getLinkNameAttribute()
+    {
+        return $this->attributes['album_name'];
+    }
+
+    /**
      * Get the album galleries.
      * 
      * @return collection

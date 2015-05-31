@@ -105,8 +105,7 @@ class AlbumController extends BaseController {
 	 */
 	public function postEdit($id, AlbumFormRequest $request)
 	{
-		$data['user_id'] = \Auth::user()->id;
-		$album           = \CMS::albums()->update($id, array_merge($request->all(), $data));
+		$album = \CMS::albums()->update($id, $request->all());
 		\CMS::galleries()->addGalleries($album, $request->input('gallery_ids'));
 
 		return redirect()->back()->with('message', 'Album updated succssefuly');

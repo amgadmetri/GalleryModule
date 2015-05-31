@@ -132,9 +132,7 @@ use App\Modules\Gallery\Http\Requests\PhotoFormRequest;
 	 */
 	public function postEdit($id, VideoFormRequest $request)
 	{
-		$data['user_id'] = \Auth::user()->id;
-		\CMS::galleries()->update($id, array_merge($request->only('file_name', 'caption', 'album_id'), $data));
-	
+		\CMS::galleries()->update($id, $request->only('file_name', 'caption', 'album_id'));
 		return redirect()->back()->with('message', 'Photo updated succssefuly');
 	}
 
