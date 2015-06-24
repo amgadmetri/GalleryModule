@@ -151,8 +151,8 @@ class GalleryRepository extends AbstractRepository
 	 * Assign the given list of galleries ids to
 	 * the given object.
 	 * 
-	 * @param object $obj
-	 * @param array  $data
+	 * @param  object $obj
+	 * @param  array  $data
 	 * @return void
 	 */
 	public function addItemGalleries($obj, $data)
@@ -165,7 +165,7 @@ class GalleryRepository extends AbstractRepository
 	 * the given object.
 	 * 
 	 * @param  object  $obj
-	 * @param  onteger $id
+	 * @param  integer $id
 	 * @return void
 	 */
 	public function deleteItemGallery($obj, $id)

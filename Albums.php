@@ -37,9 +37,9 @@ class Albums extends Model {
     public function galleries()
     {
         return $this->belongsToMany('App\Modules\Gallery\Gallery',
-            'album_galleries',
-            'album_id',
-            'gallery_id')->withTimestamps();
+                                    'album_galleries',
+                                    'album_id',
+                                    'gallery_id')->withTimestamps();
     }
      
     public static function boot()
