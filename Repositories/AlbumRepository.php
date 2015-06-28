@@ -1,6 +1,6 @@
 <?php namespace App\Modules\Gallery\Repositories;
 
-use App\AbstractRepositories\AbstractRepository;
+use App\Modules\Core\AbstractRepositories\AbstractRepository;
 
 class AlbumRepository extends AbstractRepository
 {	

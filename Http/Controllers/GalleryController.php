@@ -1,6 +1,6 @@
 <?php namespace App\Modules\Gallery\Http\Controllers;
 
-use App\Http\Controllers\BaseController;
+use App\Modules\Core\Http\Controllers\BaseController;
 use App\Modules\Gallery\Http\Requests\VideoFormRequest;
 use App\Modules\Gallery\Http\Requests\PhotoFormRequest;
 
